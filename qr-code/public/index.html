@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.min.js"></script>
+    <script src="js/qrious.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Gerador de QRCode</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ title }}</h1>
+        <div><input type="text" name="" id="" size="25" placeholder="Digite pra gerar..." :value="text" @input="onData"></div>
+        <div v-if="text" class="output">
+            <img src="" alt="QRCode" :src="newQRCode">
+        </div>
+        {{ title }}
+    </div>
+    
+    <script>
+    new Vue ({
+            el: "#app",
+            data: {
+                title: "Gerador de QrCode",
+                text: 'https://www.cod3r.com.br',
+                qrcode: new QRious({ size: 300 })
+            },
+
+            computed: {
+                newQrCode() {
+                    this.qrcode.value = this.text
+                    return this.qrcode.toDataURL()
+                }
+            },
+            methods: {
+                onData(event) {
+                    this.text = event.target.value
+                }
+            },
+
+        }) 
+    </script>
+</body>
+
+</html>
